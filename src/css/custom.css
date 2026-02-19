@@ -6,7 +6,7 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
+  --ifm-color-primary: #C98300;
   --ifm-color-primary-dark: #29784c;
   --ifm-color-primary-darker: #277148;
   --ifm-color-primary-darkest: #205d3b;
@@ -19,7 +19,7 @@
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary: #C98300;
   --ifm-color-primary-dark: #21af90;
   --ifm-color-primary-darker: #1fa588;
   --ifm-color-primary-darkest: #1a8870;
@@ -27,4 +27,47 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Hero Styles */
+.heroBanner {
+  padding: 8rem 0;
+  text-align: center;
+  background: #0b1120; /* Deep Obsidian Blue */
+  color: white;
+}
+
+.heroTitle {
+  font-size: 4.5rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+.factGradient {
+  background: linear-gradient(120deg, #60a5fa, #c084fc, #60a5fa);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 6s linear infinite;
+}
+
+@keyframes shine {
+  to { background-position: 200% center; }
+}
+
+.heroSubtitle {
+  font-size: 1.6rem;
+  max-width: 900px;
+  margin: 0 auto;
+  font-weight: 300;
+  color: #94a3b8;
+}
+
+.manifestoSection {
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
+
+[data-theme='dark'] .manifestoSection {
+  background: #0b1120;
 }

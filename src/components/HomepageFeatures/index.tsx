@@ -5,58 +5,54 @@ import styles from './styles.module.css';
 
 type FeatureItem = {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
   description: ReactNode;
 };
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'Adaptive Consistency (DCB)',
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Move beyond rigid aggregates. <b>Dynamic Consistency Boundaries</b> allow 
+        you to define invariants at runtime, giving you the flexibility of 
+        relational transactions within an immutable event store.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Storage Agnostic & Open Source',
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        FactStore is a 100% open-source formal protocol. Use the <b>FoundationDB</b> implementation for 
+        global ACID scale, or stay lightweight with <b>In-Memory</b> 
+        adapters for local development and testing.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'Sustainable Engineering',
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Designed for long-term stability. We use a <b>Fair Source</b> model to 
+        remain independent: the code is open for all, while a production license 
+        from businesses ensures continued development and maintenance.
       </>
     ),
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+const Feature = ({title, description}: FeatureItem) => {
   return (
     <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
+      <div className="padding-horiz--md">
+        <h3 style={{fontSize: '1.5rem', fontWeight: '700'}}>{title}</h3>
+        <p style={{lineHeight: '1.6', color: 'var(--ifm-color-emphasis-700)'}}>{description}</p>
       </div>
     </div>
   );
 }
 
-export default function HomepageFeatures(): ReactNode {
+export default function HomepageFeatures(): React.JSX.Element {
   return (
     <section className={styles.features}>
       <div className="container">
