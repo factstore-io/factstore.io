@@ -10,32 +10,33 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Adaptive Consistency (DCB)',
+    title: 'Event Sourcing and Streaming',
     description: (
       <>
-        Move beyond rigid aggregates. <b>Dynamic Consistency Boundaries</b> allow 
-        you to define invariants at runtime, giving you the flexibility of 
-        relational transactions within an immutable event store.
+        FactStore supports traditional aggregate or stream-based event sourcing 
+        as well as more flexibile approaches to enforce consistency, such as 
+        dynamic consistency boundaries (DCB). FactStore gives you the flexibility to 
+        use both.
       </>
     ),
   },
   {
-    title: 'Storage Agnostic & Open Source',
+    title: 'Scalable and Performant',
     description: (
       <>
-        FactStore is a 100% open-source formal protocol. Use the <b>FoundationDB</b> implementation for 
-        global ACID scale, or stay lightweight with <b>In-Memory</b> 
-        adapters for local development and testing.
+        Adopt FactStore to the workload you need. Whether you need a FactStore for local development and expirementation, 
+        or a production-ready, redundant storage, FactStore's flexible architecture let's you choose.
       </>
     ),
   },
   {
-    title: 'Sustainable Engineering',
+    title: 'Open Source',
     description: (
       <>
-        Designed for long-term stability. We use a <b>Fair Source</b> model to 
-        remain independent: the code is open for all, while a production license 
-        from businesses ensures continued development and maintenance.
+        The core of FactStore is fully open source and licensed under Apache 2.0.
+        Deploy FactStore wherever you like, on-premise or in the cloud. 
+        There is no vendor lock in. Enterprise features and support are being made available 
+        for advanced use cases.
       </>
     ),
   },
@@ -55,7 +56,9 @@ const Feature = ({title, description}: FeatureItem) => {
 export default function HomepageFeatures(): React.JSX.Element {
   return (
     <section className={styles.features}>
-      <div className="container">
+      <div className="container" >
+        <h2 style={{fontSize: '2.5rem', marginBottom: '2rem'}}>Core Capabilites</h2>
+        <h3>FactStore provides the backbone for your event sourcing infrastructure.</h3>
         <div className="row">
           {FeatureList.map((props, idx) => (
             <Feature key={idx} {...props} />

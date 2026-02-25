@@ -11,18 +11,18 @@ function HomepageHeader() {
     <header className="heroBanner">
       <div className="container">
         <h1 className="heroTitle">
-          FactStore — Because your <span className="factGradient">Facts</span> matter.
+          Treat your <span className="factGradient">Business Facts</span> with the respect they deserve.
         </h1>
         <p className="heroSubtitle">
-          A formal specification and high-performance database for event sourcing at scale. 
-          Move beyond fixed aggregate boundaries with Dynamic Consistency.
+          <b>FactStore</b> is an open-source, flexible, and high-performance database for event sourcing at scale. 
+          It provides a set of APIs and libraries to store, retrieve, and stream your business facts with ease. 
         </p>
         <div style={{marginTop: '2rem'}}>
           <Link
             className="button button--secondary button--lg"
             to="/docs/overview"
             style={{padding: '1rem 3rem', borderRadius: '4px', fontWeight: 'bold'}}>
-            Explore the Specification
+            Read the Docs
           </Link>
         </div>
       </div>
@@ -41,15 +41,15 @@ export default function Home() {
         <section className="manifestoSection">
           <div className="container" style={{maxWidth: '800px'}}>
             <h2 style={{fontSize: '2.5rem', marginBottom: '2rem'}}>A Manifesto for Data Integrity</h2>
-            <p style={{fontSize: '1.25rem', lineHeight: '1.6'}}>
+            <p style={{fontSize: '1.25rem'}}>
               Software systems are built on decisions, but they are sustained by facts. 
               Traditional databases force you to structure your world before you understand it. 
-              FactStore is designed for the evolution of truth.
+              FactStore comes from a different angle and is designed with event sourcing and flexiblity in mind. 
             </p>
-            <p style={{fontSize: '1.1rem', color: '#64748b'}}>
-              By decoupling the specification from the storage implementation—whether you use 
-              FoundationDB for global reach or in-memory for local speed—FactStore remains 
-              the immutable anchor of your architecture.
+            <p style={{fontSize: '1.25rem'}}>
+              Event sourcing should be easy and accessible to everyone, with the least amount of patterns needed! 
+              FactStore is an attempt to provide this flexibility and freedom so that you can design your applications in a way 
+              that closely reflects how your business operates, without the additional technical overhead.
             </p>
           </div>
         </section>
@@ -68,16 +68,23 @@ export default function Home() {
                   operationally flexible.
                 </p>
                 <ul style={{listStyle: 'none', padding: 0, lineHeight: '2.5'}}>
-                  <li><b>✓ Open Source Transparency:</b> Audit every line of code.</li>
-                  <li><b>✓ No Per-Node Tax:</b> Predictable licensing for sustainable growth.</li>
-                  <li><b>✓ DCB Flexibility:</b> Dynamic boundaries that grow with your business logic.</li>
-                  <li><b>✓ ACID Guaranteed:</b> Distributed transactions that never compromise.</li>
+                  <li><b>✅ Open Source Transparency:</b> Audit every line of code.</li>
+                  <li><b>✅ Clear and simple APIs:</b> FactStore is well-documented and tested.</li>
+                  <li><b>✅ Flexible event sourcing:</b> Support for stream-based and dynamic consistency.</li>
+                  <li><b>✅ Atomic Operations:</b> Profit from strong consistency and idempotent operations.</li>
+                  <li><b>✅ CloudEvent support:</b> Use common transport protocols to share your facts. (TODO)</li>
                 </ul>
               </div>
               <div className="col">
-                <img src={require('@site/static/img/logo.png').default} />
+                <img src={require('@site/static/img/logo.png').default} width={"50%"} />
               </div>
             </div>
+            <Link
+              className="button button--primary button--lg"
+              to="/docs/overview"
+              style={{padding: '1rem 3rem', borderRadius: '4px', fontWeight: 'bold'}}>
+              Get started now!
+            </Link>
           </div>
         </section>
       </main>

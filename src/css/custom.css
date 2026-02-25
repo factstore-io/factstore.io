@@ -64,10 +64,10 @@
 }
 
 .manifestoSection {
-  padding-top: 5em;
+  margin-top: 5em;
   padding-bottom: 5em;
 }
 
-[data-theme='dark'] .manifestoSection {
+/* [data-theme='dark'] .manifestoSection {
   background: #0b1120;
-}
+} */
