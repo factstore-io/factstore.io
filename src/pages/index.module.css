@@ -1,23 +1,424 @@
 /**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
+ * FactStore — Homepage styles (CSS Module)
+ * Place at: src/pages/index.module.css
  */
 
+/* ─── Hero ──────────────────────────────────────── */
+
 .heroBanner {
-  padding: 4rem 0;
-  text-align: center;
   position: relative;
   overflow: hidden;
+  padding: 6rem 1.5rem 8rem;
+  text-align: center;
+  background-color: var(--fs-bg-deep);
+  color: var(--fs-text);
+
+  /* Subtle grid pattern */
+  background-image:
+    linear-gradient(var(--fs-hero-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--fs-hero-grid-line) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
 
-@media screen and (max-width: 996px) {
+@media (min-width: 768px) {
   .heroBanner {
-    padding: 2rem;
+    padding: 8rem 1.5rem 10rem;
   }
 }
 
-.buttons {
+@media (min-width: 1024px) {
+  .heroBanner {
+    padding: 10rem 1.5rem 12rem;
+  }
+}
+
+/* Radial glow behind hero */
+.heroBanner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 40%,
+    var(--fs-hero-glow),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.heroInner {
+  position: relative; /* above the ::before glow */
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 1rem;
+  margin-bottom: 2rem;
+  border-radius: 9999px;
+  border: 1px solid var(--fs-border);
+  background: var(--fs-secondary-bg);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--fs-text-muted);
+}
+
+.heroBadgeDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ifm-color-primary);
+}
+
+.heroTitle {
+  font-size: 2.25rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--fs-text);
+  text-wrap: balance;
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: 3.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heroTitle {
+    font-size: 4.5rem;
+  }
+}
+
+.factGradient {
+  background: linear-gradient(120deg, var(--fs-accent-blue), var(--fs-accent-purple), var(--ifm-color-primary), var(--fs-accent-blue));
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shine 6s linear infinite;
+}
+
+.heroSubtitle {
+  max-width: 42rem;
+  margin: 1.5rem auto 0;
+  font-size: 1.125rem;
+  line-height: 1.625;
+  color: var(--fs-text-muted);
+  text-wrap: pretty;
+}
+
+@media (min-width: 768px) {
+  .heroSubtitle {
+    font-size: 1.25rem;
+  }
+}
+
+.heroSubtitleBold {
+  color: var(--fs-text);
+  font-weight: 700;
+}
+
+.heroCta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 640px) {
+  .heroCta {
+    flex-direction: row;
+  }
+}
+
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: var(--ifm-color-primary);
+  color: var(--fs-bg-deep);
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.ctaPrimary:hover {
+  opacity: 0.9;
+  color: var(--fs-bg-deep);
+  text-decoration: none;
+}
+
+.ctaPrimary svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--fs-border);
+  background: var(--fs-secondary-bg);
+  color: var(--fs-text);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.ctaSecondary:hover {
+  background: var(--fs-border);
+  color: var(--fs-text);
+  text-decoration: none;
+}
+
+/* ─── Manifesto ─────────────────────────────────── */
+
+.manifestoSection {
+  padding: 5rem 1.5rem;
+  background-color: var(--fs-bg-surface);
+}
+
+@media (min-width: 768px) {
+  .manifestoSection {
+    padding: 7rem 1.5rem;
+  }
+}
+
+.manifestoInner {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.manifestoTitle {
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--fs-text);
+  text-wrap: balance;
+}
+
+@media (min-width: 768px) {
+  .manifestoTitle {
+    font-size: 2.25rem;
+  }
+}
+
+.manifestoBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.manifestoText {
+  font-size: 1.125rem;
+  line-height: 1.625;
+  color: var(--fs-text-muted);
+  margin: 0;
+}
+
+/* ─── Why Section ───────────────────────────────── */
+
+.whySection {
+  padding: 5rem 1.5rem;
+  background-color: var(--fs-bg-surface);
+}
+
+@media (min-width: 768px) {
+  .whySection {
+    padding: 7rem 1.5rem;
+  }
+}
+
+.whyInner {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.whyGrid {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3rem;
+}
+
+@media (min-width: 1024px) {
+  .whyGrid {
+    flex-direction: row;
+    gap: 5rem;
+  }
+}
+
+.whyContent {
+  flex: 1;
+}
+
+.whyTitle {
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--fs-text);
+  text-wrap: balance;
+}
+
+@media (min-width: 768px) {
+  .whyTitle {
+    font-size: 2.25rem;
+  }
+}
+
+.whyDescription {
+  max-width: 32rem;
+  margin-top: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.625;
+  color: var(--fs-text-muted);
+}
+
+.whyList {
+  list-style: none;
+  padding: 0;
+  margin: 2.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.whyListItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.checkIcon {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0.125rem;
+  border-radius: 50%;
+  background: rgba(179, 116, 0, 0.12);
+  color: var(--ifm-color-primary);
+}
+
+.checkIcon svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.whyListText {
+  color: var(--fs-text);
+}
+
+.whyListTextDetail {
+  color: var(--fs-text-muted);
+}
+
+.whyCtaWrap {
+  margin-top: 2.5rem;
+}
+
+/* ─── Code Panel ────────────────────────────────── */
+
+.codePanel {
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  border: 1px solid var(--fs-border);
+  background: var(--fs-code-bg);
+}
+
+.codePanelHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--fs-border);
+}
+
+.codeDotRed {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff5f57;
+}
+
+.codeDotYellow {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #febc2e;
+}
+
+.codeDotGreen {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #28c840;
+}
+
+.codePanelFilename {
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--fs-text-muted);
+}
+
+.codePanelBody {
+  padding: 1.5rem;
+  overflow-x: auto;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.875rem;
+  line-height: 1.625;
+}
+
+/* Syntax colors for the code snippet */
+.syntaxKeyword {
+  color: var(--fs-accent-blue);
+}
+
+.syntaxClass {
+  color: var(--fs-accent-purple);
+}
+
+.syntaxPunctuation {
+  color: var(--fs-text-muted);
+}
+
+.syntaxString {
+  color: var(--fs-accent-green);
+}
+
+.syntaxMethod {
+  color: var(--ifm-color-primary);
+}
+
+.syntaxNumber {
+  color: var(--ifm-color-primary);
+}
+
+.syntaxIdent {
+  color: var(--fs-text);
+}
+
+.syntaxComment {
+  color: var(--fs-text-muted);
 }

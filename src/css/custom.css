@@ -1,73 +1,78 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * FactStore — Docusaurus global theme overrides
+ * Place at: src/css/custom.css
  */
 
-/* You can override the default Infima variables here. */
+/* ─── Light mode (default) ──────────────────────── */
 :root {
-  --ifm-color-primary: #C98300;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  /* Infima primary overrides (amber/gold) */
+  --ifm-color-primary: #b37400;
+  --ifm-color-primary-dark: #9a6400;
+  --ifm-color-primary-darker: #8a5a00;
+  --ifm-color-primary-darkest: #6b4600;
+  --ifm-color-primary-light: #cc8400;
+  --ifm-color-primary-lighter: #d99419;
+  --ifm-color-primary-lightest: #e8b54d;
+
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.06);
+
+  /* FactStore custom tokens — light palette */
+  --fs-bg-deep: #ffffff;
+  --fs-bg-surface: #f8fafc;
+  --fs-bg-card: #ffffff;
+  --fs-bg-card-hover: rgba(179, 116, 0, 0.06);
+  --fs-text: #0f172a;
+  --fs-text-muted: #475569;
+  --fs-border: #e2e8f0;
+  --fs-accent-blue: #2563eb;
+  --fs-accent-purple: #7c3aed;
+  --fs-accent-green: #059669;
+  --fs-secondary-bg: rgba(241, 245, 249, 0.8);
+
+  /* Hero-specific light overrides */
+  --fs-hero-grid-line: rgba(0, 0, 0, 0.04);
+  --fs-hero-glow: rgba(37, 99, 235, 0.06);
+  --fs-code-bg: #f1f5f9;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
+/* ─── Dark mode ─────────────────────────────────── */
+[data-theme="dark"] {
   --ifm-color-primary: #C98300;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+  --ifm-color-primary-dark: #b57600;
+  --ifm-color-primary-darker: #a16900;
+  --ifm-color-primary-darkest: #7a5000;
+  --ifm-color-primary-light: #d99419;
+  --ifm-color-primary-lighter: #e0a333;
+  --ifm-color-primary-lightest: #e8b54d;
+
+ /* --ifm-background-color: #0F172A;*/
+  --ifm-navbar-background-color: #0B1120;
+  --ifm-footer-background-color: #0B1120;
+
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  /* FactStore custom tokens — dark palette */
+  --fs-bg-deep: #0b1120;
+  --fs-bg-surface: #0f172a;
+  --fs-bg-card: #111827;
+  --fs-bg-card-hover: rgba(201, 131, 0, 0.08);
+  --fs-text: #e2e8f0;
+  --fs-text-muted: #94a3b8;
+  --fs-border: #1e293b;
+  --fs-accent-blue: #60a5fa;
+  --fs-accent-purple: #c084fc;
+  --fs-accent-green: #34d399;
+  --fs-secondary-bg: rgba(30, 41, 59, 0.6);
+
+  --fs-hero-grid-line: rgba(255, 255, 255, 0.03);
+  --fs-hero-glow: rgba(96, 165, 250, 0.08);
+  --fs-code-bg: var(--fs-bg-card);
 }
 
-/* Hero Styles */
-.heroBanner {
-  padding: 8rem 0;
-  text-align: center;
-  background: #0b1120; /* Deep Obsidian Blue */
-  color: white;
-}
-
-.heroTitle {
-  font-size: 4.5rem;
-  font-weight: 900;
-  margin-bottom: 1rem;
-}
-
-.factGradient {
-  background: linear-gradient(120deg, #60a5fa, #c084fc, #60a5fa);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shine 6s linear infinite;
-}
-
+/* Gradient text animation */
 @keyframes shine {
-  to { background-position: 200% center; }
+  to {
+    background-position: 200% center;
+  }
 }
-
-.heroSubtitle {
-  font-size: 1.6rem;
-  max-width: 900px;
-  margin: 0 auto;
-  font-weight: 300;
-  color: #94a3b8;
-}
-
-.manifestoSection {
-  margin-top: 5em;
-  padding-bottom: 5em;
-}
-
-/* [data-theme='dark'] .manifestoSection {
-  background: #0b1120;
-} */

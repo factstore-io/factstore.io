@@ -96,7 +96,7 @@ const config: Config = {
       ],
     },
     footer: {
-      style: 'dark',
+    //  style: 'dark',
       links: [
         {
           title: 'Resources',
@@ -104,6 +104,10 @@ const config: Config = {
             {
               label: 'Documentation',
               to: '/docs/overview',
+            },
+            {
+              label: 'Blog',
+              to: '/blog',
             },
           ],
         },
@@ -124,10 +128,6 @@ const config: Config = {
         {
           title: 'More',
           items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
             {
               label: 'GitHub',
               href: 'https://github.com/factstore-io/factstore',
