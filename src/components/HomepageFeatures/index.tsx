@@ -4,7 +4,7 @@ import styles from './styles.module.css';
 
 /* ─── Inline SVG icons ──── */
 
-function LayersIcon() {
+function ShieldIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -17,14 +17,12 @@ function LayersIcon() {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
-      <path d="m22.54 12.43-1.96-.89-7.75 3.53a2 2 0 0 1-1.66 0l-7.75-3.53-1.96.89a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.84Z" />
-      <path d="m22.54 16.43-1.96-.89-7.75 3.53a2 2 0 0 1-1.66 0l-7.75-3.53-1.96.89a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.84Z" />
+      <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
     </svg>
   );
 }
 
-function ZapIcon() {
+function SearchIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -37,12 +35,13 @@ function ZapIcon() {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.3-4.3" />
     </svg>
   );
 }
 
-function Code2Icon() {
+function RadioIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -55,9 +54,11 @@ function Code2Icon() {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="m18 16 4-4-4-4" />
-      <path d="m6 8-4 4 4 4" />
-      <path d="m14.5 4-5 16" />
+      <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9" />
+      <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5" />
+      <circle cx="12" cy="12" r="2" />
+      <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5" />
+      <path d="M19.1 4.9C23 8.8 23 15.2 19.1 19.1" />
     </svg>
   );
 }
@@ -72,39 +73,37 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Event Sourcing and Streaming',
+    title: 'Append with confidence',
     description: (
       <>
-        FactStore supports traditional aggregate or stream-based event sourcing
-        as well as more flexible approaches to enforce consistency, such as
-        dynamic consistency boundaries (DCB). FactStore gives you the flexibility
-        to use both.
+        Every append is atomic and idempotent. Express exactly the consistency
+        you need per operation — from simple unconditional writes to
+        multi-subject conditional appends. Safe to retry. No surprises.
       </>
     ),
-    icon: <LayersIcon />,
+    icon: <ShieldIcon />,
   },
   {
-    title: 'Scalable and Performant',
+    title: 'Query the way your domain thinks',
     description: (
       <>
-        Adapt FactStore to the workload you need. Whether you need a FactStore
-        for local development and experimentation, or a production-ready,
-        redundant storage, FactStore's flexible architecture lets you choose.
+        Read facts by subject, filter by tags, or query by time range —
+        forward or backward, with or without limits. Access patterns that
+        fit your domain, not the other way around.
       </>
     ),
-    icon: <ZapIcon />,
+    icon: <SearchIcon />,
   },
   {
-    title: 'Open Source',
+    title: 'Stream in real time',
     description: (
       <>
-        The core of FactStore is fully open source and licensed under Apache 2.0.
-        Deploy FactStore wherever you like, on-premise or in the cloud. There is
-        no vendor lock-in. Enterprise features and support are available for
-        advanced use cases.
+        Consume facts as an ordered, resumable stream. Start from the
+        beginning, from the end, or pick up exactly where you left off.
+        Built for projections, integrations, and event-driven workflows.
       </>
     ),
-    icon: <Code2Icon />,
+    icon: <RadioIcon />,
   },
 ];
 
@@ -129,8 +128,7 @@ export default function HomepageFeatures(): React.JSX.Element {
         <div className={styles.featuresHeader}>
           <h2 className={styles.featuresTitle}>Core Capabilities</h2>
           <p className={styles.featuresSubtitle}>
-            FactStore provides the backbone for your event sourcing
-            infrastructure.
+            Three primitives. Endless possibilities.
           </p>
         </div>
 

@@ -69,6 +69,11 @@ const config: Config = {
   ],
 
   themeConfig: {
+    announcementBar: {
+      id: 'pre_release',
+      content: 'FactStore is currently in pre-release and not yet recommended for production use.',
+      isCloseable: true,
+    },
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     colorMode: {
@@ -115,14 +120,9 @@ const config: Config = {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'GitHub Discussions',
+              href: 'https://github.com/factstore-io/factstore/discussions',
             },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-
           ],
         },
         {
