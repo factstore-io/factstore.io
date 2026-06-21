@@ -356,7 +356,7 @@ function WhySection() {
                 {'  --type CustomerOnboarded \\\n'}
                 {'  --tag status=active\n\n'}
                 <span className={styles.syntaxComment}>{'# Stream facts in real time\n'}</span>
-                {'factstore fact stream \\\n'}
+                {'factstore fact subscribe \\\n'}
                 {'  --store customers --from beginning\n'}
               </code>
             </pre>
