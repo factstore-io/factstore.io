@@ -1,0 +1,345 @@
+---
+sidebar_label: '5-Minute Tutorial'
+sidebar_position: 1
+description: Start a FactStore, append your first facts, and watch them stream in — using nothing but copy-paste.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# The 5-Minute Tutorial
+
+No sign-up, no database to install, no build to wait for. One container, a handful of
+commands, and you will have appended your first facts and watched them arrive live.
+
+You need **Docker**. That is the whole list.
+
+By the end you will have:
+
+- started a FactStore server
+- created a store and appended some facts
+- read those facts back two different ways
+- watched new facts stream in as they happen
+
+We will book seats on a course, because that is the smallest interesting thing that
+still has real consistency questions hiding inside it.
+
+---
+
+## Step 1 — Start FactStore
+
+```bash
+docker network create factstore-net
+
+docker run -d --name factstore --network factstore-net -p 8080:8080 \
+  ghcr.io/factstore-io/factstore-server:main
+```
+
+The network is so the CLI can find the server later. If you only ever use `curl`, the
+published port on `localhost` is enough — but creating it now costs nothing.
+
+Give it a few seconds, then check it is awake:
+
+```bash
+curl http://localhost:8080/api/v1/info
+```
+
+```json
+{"app":"factstore-server","version":"0.1.0-SNAPSHOT","storageBackend":"memory"}
+```
+
+:::note Nothing to install, nothing to configure
+`storageBackend: memory` means FactStore is keeping everything in RAM. That is the
+default in the container so this tutorial has no prerequisites at all. It also means
+your facts vanish when the container stops — which is fine for the next five minutes,
+and [fixable in one command](#where-to-go-next) afterwards.
+:::
+
+## Step 2 — Pick your tool
+
+Everything below is shown twice: once with `curl`, once with the FactStore CLI. Pick
+whichever you prefer — they talk to the same server and do the same thing.
+
+<Tabs groupId="tool">
+<TabItem value="curl" label="curl">
+
+Nothing to do. You already have `curl`.
+
+</TabItem>
+<TabItem value="cli" label="factstore-cli">
+
+The CLI ships as a container too. Set up an alias once, and then it behaves like a
+normal command:
+
+```bash
+alias factstore='docker run --rm --network factstore-net \
+  -e QUARKUS_GRPC_CLIENTS_FACTSTORE_HOST=factstore \
+  ghcr.io/factstore-io/factstore-cli:main'
+```
+
+Check it:
+
+```bash
+factstore --help
+```
+
+The alias lasts as long as your shell session. Add it to your `~/.bashrc` or `~/.zshrc`
+if you expect to keep playing.
+
+</TabItem>
+</Tabs>
+
+---
+
+## Step 3 — Create a store
+
+Facts live in a **store**. Before you can append anything, you need one.
+
+<Tabs groupId="tool">
+<TabItem value="curl" label="curl">
+
+```bash
+curl -X POST http://localhost:8080/api/v1/stores \
+  -H 'Content-Type: application/json' \
+  -d '{"name":"courses"}'
+```
+
+</TabItem>
+<TabItem value="cli" label="factstore-cli">
+
+```bash
+factstore store create courses
+```
+
+</TabItem>
+</Tabs>
+
+:::info Concept: stores
+A store is an independent, ordered log of facts. You can have as many as you like —
+one per bounded context, one per tenant, one per environment, or just one called
+`playground` because it is Tuesday.
+
+Stores do not talk to each other. Ordering, queries and subscriptions are all scoped
+to a single store, which makes a store the unit you reason about.
+:::
+
+## Step 4 — Append your first facts
+
+Now the interesting part. A **fact** is something that happened. It is written once and
+never changed.
+
+<Tabs groupId="tool">
+<TabItem value="curl" label="curl">
+
+FactStore treats payloads as opaque bytes, so over JSON they travel base64-encoded. A
+shell variable keeps that tidy:
+
+```bash
+PAYLOAD=$(printf '{"seat":"A1","attendee":"ada"}' | base64)
+
+curl -X POST http://localhost:8080/api/v1/stores/courses/facts \
+  -H 'Content-Type: application/json' \
+  -d "{\"facts\": [{
+        \"type\": \"SEAT_RESERVED\",
+        \"subject\": \"course/kotlin-101\",
+        \"payload\": {\"data\": \"$PAYLOAD\"},
+        \"tags\": {\"course\": \"kotlin-101\", \"attendee\": \"ada\"}
+      }]}"
+```
+
+</TabItem>
+<TabItem value="cli" label="factstore-cli">
+
+```bash
+factstore fact append '{"seat":"A1","attendee":"ada"}' \
+  --store courses \
+  --subject course/kotlin-101 \
+  --type SEAT_RESERVED \
+  --tag course=kotlin-101 \
+  --tag attendee=ada
+```
+
+</TabItem>
+</Tabs>
+
+You get back the id of the fact you just wrote:
+
+```json
+{"factIds":["20c6d4fb-8472-4cfd-94ee-4729d65b23ee"],"appendedAt":"2026-08-02T18:31:47Z"}
+```
+
+Now add a second one, so there is something to query. Change the seat and the attendee:
+
+<Tabs groupId="tool">
+<TabItem value="curl" label="curl">
+
+```bash
+PAYLOAD=$(printf '{"seat":"B2","attendee":"grace"}' | base64)
+
+curl -X POST http://localhost:8080/api/v1/stores/courses/facts \
+  -H 'Content-Type: application/json' \
+  -d "{\"facts\": [{
+        \"type\": \"SEAT_RESERVED\",
+        \"subject\": \"course/kotlin-101\",
+        \"payload\": {\"data\": \"$PAYLOAD\"},
+        \"tags\": {\"course\": \"kotlin-101\", \"attendee\": \"grace\"}
+      }]}"
+```
+
+</TabItem>
+<TabItem value="cli" label="factstore-cli">
+
+```bash
+factstore fact append '{"seat":"B2","attendee":"grace"}' \
+  --store courses \
+  --subject course/kotlin-101 \
+  --type SEAT_RESERVED \
+  --tag course=kotlin-101 \
+  --tag attendee=grace
+```
+
+</TabItem>
+</Tabs>
+
+:::info Concept: type, subject and tags
+Three things describe every fact, and the difference matters:
+
+- **`type`** — *what happened*. `SEAT_RESERVED`. Your vocabulary, your naming.
+- **`subject`** — *what it happened to*. `course/kotlin-101`. This is the entity the
+  fact belongs to, and it is what gives you a classic per-entity stream.
+- **`tags`** — *anything else worth finding it by*. Free-form key/value pairs, and a
+  fact can carry as many as it likes.
+
+The payload is yours. FactStore never looks inside it.
+:::
+
+## Step 5 — Read them back
+
+Here is where FactStore starts to differ from a plain append-only log. The same two
+facts can be retrieved along two independent axes.
+
+**By subject** — everything that happened to this course:
+
+<Tabs groupId="tool">
+<TabItem value="curl" label="curl">
+
+```bash
+curl http://localhost:8080/api/v1/stores/courses/subjects/course%2Fkotlin-101/facts
+```
+
+Subjects usually contain slashes, so URL-encode them: `/` becomes `%2F`.
+
+</TabItem>
+<TabItem value="cli" label="factstore-cli">
+
+```bash
+factstore fact find-by-subject course/kotlin-101 --store courses
+```
+
+</TabItem>
+</Tabs>
+
+**By tag** — everything Ada did, regardless of which course it was:
+
+<Tabs groupId="tool">
+<TabItem value="curl" label="curl">
+
+```bash
+curl "http://localhost:8080/api/v1/stores/courses/facts?tag=attendee%3Dada"
+```
+
+Tags are passed as `key=value`, so the `=` is encoded as `%3D`.
+
+</TabItem>
+<TabItem value="cli" label="factstore-cli">
+
+```bash
+factstore fact find-by-tags --store courses --tag attendee=ada
+```
+
+</TabItem>
+</Tabs>
+
+:::tip Concept: why two ways?
+Reading **by subject** is classic event sourcing — the history of one entity, in order.
+
+Reading **by tag** cuts across subjects entirely: *"every seat Ada reserved"*, *"every
+fact from the EU region"*. In most event stores that second question needs a separate
+read model. Here both are first-class queries over the same facts.
+
+That is the idea FactStore is built around: consistency and query boundaries are
+decided per operation, not fixed when you design your schema.
+:::
+
+## Step 6 — Watch facts arrive live
+
+Reading what already happened is useful. Watching it happen is more fun.
+
+Open a **second terminal** and start a subscription. It will sit there and wait:
+
+<Tabs groupId="tool">
+<TabItem value="curl" label="curl">
+
+```bash
+curl -N "http://localhost:8080/api/v1/stores/courses/facts/subscribe?from=end"
+```
+
+</TabItem>
+<TabItem value="cli" label="factstore-cli">
+
+```bash
+factstore fact subscribe --store courses --from end
+```
+
+If you opened a fresh terminal, set the alias up again first.
+
+</TabItem>
+</Tabs>
+
+Now go back to your **first terminal** and append another fact — reuse the command from
+Step 4, with a different seat.
+
+The new fact appears in the second terminal the moment it is written. `from=end` means
+*only show me what happens from now on*; swap it for `beginning` to replay the whole
+store first and then keep following, like `tail -f`.
+
+Press `Ctrl+C` when you have had enough.
+
+:::note Subscribe vs replay
+`subscribe` never finishes on its own — it keeps following. Its sibling `replay` drains
+everything up to the current end of the store and then exits, which is what you want for
+rebuilding a projection or exporting a batch.
+:::
+
+## Step 7 — Look at it
+
+FactStore ships with a web explorer, already running:
+
+**[http://localhost:8080](http://localhost:8080)**
+
+Your `courses` store and its facts are in there.
+
+---
+
+## Where to go next
+
+**Keep your data.** The container defaults to in-memory storage. To run against a real
+FoundationDB cluster with one command, use the Compose file from the
+[repository](https://github.com/factstore-io/factstore):
+
+```bash
+docker compose -f deploy/docker-compose.yml up
+```
+
+**Clean up.** When you are done playing:
+
+```bash
+docker rm -f factstore
+docker network rm factstore-net
+```
+
+Everything you created was in memory, so that is genuinely all of it.
+
+**Go deeper.** [Appending Facts](appending-facts.md) covers idempotency keys and
+conditional appends — how FactStore makes retries safe and how you enforce invariants
+like *"this course only has 30 seats"* without locking anything.
