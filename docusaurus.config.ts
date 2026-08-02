@@ -27,6 +27,17 @@ const config: Config = {
 
   onBrokenLinks: 'throw',
 
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/img/apple-touch-icon.png',
+      },
+    },
+  ],
+
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
@@ -74,14 +85,15 @@ const config: Config = {
       content: 'FactStore is currently in pre-release and not yet recommended for production use.',
       isCloseable: true,
     },
-    // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/factstore-social-card.jpg',
     colorMode: {
       respectPrefersColorScheme: true,
     },
     navbar: {
       title: 'FactStore',
       logo: {
+        // One mark for both themes. #b37400 clears the 3:1 non-text threshold
+        // on the white navbar (3.88:1) and the navy one (4.86:1).
         alt: 'FactStore Logo',
         src: 'img/logo.png',
       },
@@ -139,7 +151,10 @@ const config: Config = {
     },
     prism: {
       theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      // nightOwl's #011627 background is deep navy, so code blocks sit in the
+      // same hue family as the rest of the dark theme (dracula's #282a36 was
+      // purple-grey and read as a foreign element).
+      darkTheme: prismThemes.nightOwl,
     },
   } satisfies Preset.ThemeConfig,
 };

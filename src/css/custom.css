@@ -14,26 +14,52 @@
   --ifm-color-primary-lighter: #d99419;
   --ifm-color-primary-lightest: #e8b54d;
 
+  /* Links get a darker amber than the brand colour: #b37400 is only 3.88:1
+     on white, below WCAG AA for body text. #9a6400 is 5.0:1. */
+  --ifm-link-color: var(--ifm-color-primary-dark);
+  --ifm-link-hover-color: var(--ifm-color-primary-darkest);
+
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.06);
+
+  /* Admonition tints — Infima derives these from its own default blue
+     primary, not from our override, so :::tip renders blue unless set here. */
+  --ifm-color-primary-contrast-background: #fdf6e7;
+  --ifm-color-primary-contrast-foreground: #6b4600;
+  --ifm-color-secondary-contrast-background: #f8fafc;
+  --ifm-color-secondary-contrast-foreground: #0f172a;
 
   /* FactStore custom tokens — light palette */
   --fs-bg-deep: #ffffff;
   --fs-bg-surface: #f8fafc;
   --fs-bg-card: #ffffff;
-  --fs-bg-card-hover: rgba(179, 116, 0, 0.06);
+  --fs-bg-card-hover: rgb(var(--fs-primary-rgb) / 0.06);
   --fs-text: #0f172a;
   --fs-text-muted: #475569;
   --fs-border: #e2e8f0;
   --fs-accent-blue: #2563eb;
   --fs-accent-purple: #7c3aed;
-  --fs-accent-green: #059669;
+  --fs-accent-green: #047857;
+  --fs-accent-teal: #0f766e;
   --fs-secondary-bg: rgba(241, 245, 249, 0.8);
+
+  /* Channel tokens so alpha tints can follow the theme.
+     Use as: rgb(var(--fs-primary-rgb) / 0.12) */
+  --fs-primary-rgb: 179 116 0;
+  --fs-accent-blue-rgb: 37 99 235;
+  --fs-accent-purple-rgb: 124 58 237;
+  --fs-accent-green-rgb: 4 120 87;
+  --fs-accent-teal-rgb: 15 118 110;
 
   /* Hero-specific light overrides */
   --fs-hero-grid-line: rgba(0, 0, 0, 0.04);
-  --fs-hero-glow: rgba(37, 99, 235, 0.06);
+  --fs-hero-glow: rgb(var(--fs-accent-blue-rgb) / 0.06);
   --fs-code-bg: #f1f5f9;
+
+  /* Pre-release announcement bar */
+  --fs-announce-bg: #fdf6e7;
+  --fs-announce-fg: #6b4600;
+  --fs-announce-border: rgb(var(--fs-primary-rgb) / 0.25);
 }
 
 /* ─── Dark mode ─────────────────────────────────── */
@@ -46,28 +72,85 @@
   --ifm-color-primary-lighter: #e0a333;
   --ifm-color-primary-lightest: #e8b54d;
 
- /* --ifm-background-color: #0F172A;*/
-  --ifm-navbar-background-color: #0B1120;
-  --ifm-footer-background-color: #0B1120;
+  /* #C98300 is 5.7:1 on the dark surface, so links can use the brand colour */
+  --ifm-link-color: var(--ifm-color-primary);
+  --ifm-link-hover-color: var(--ifm-color-primary-lighter);
+
+  /* Page + doc sidebar. Without this, Infima's default #1b1b1d (neutral grey)
+     sits inside our navy chrome and the docs read as a different theme. */
+  --ifm-background-color: var(--fs-bg-surface);
+  /* Navbar, footer, dropdowns, cards */
+  --ifm-background-surface-color: var(--fs-bg-deep);
+  --ifm-navbar-background-color: var(--fs-bg-deep);
+  --ifm-footer-background-color: var(--fs-bg-deep);
+
+  /* Doc chrome that otherwise falls back to Infima's grey emphasis scale */
+  --ifm-toc-border-color: var(--fs-border);
+  --ifm-table-border-color: var(--fs-border);
+  --ifm-hr-background-color: var(--fs-border);
+  --ifm-blockquote-color: var(--fs-text-muted);
+  --ifm-code-background: rgb(148 163 184 / 0.14);
 
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  --ifm-color-primary-contrast-background: #3a2600;
+  --ifm-color-primary-contrast-foreground: #e8b54d;
+  --ifm-color-secondary-contrast-background: #1e293b;
+  --ifm-color-secondary-contrast-foreground: #e2e8f0;
 
   /* FactStore custom tokens — dark palette */
   --fs-bg-deep: #0b1120;
   --fs-bg-surface: #0f172a;
-  --fs-bg-card: #111827;
-  --fs-bg-card-hover: rgba(201, 131, 0, 0.08);
+  --fs-bg-card: #1e293b;
+  --fs-bg-card-hover: rgb(var(--fs-primary-rgb) / 0.08);
   --fs-text: #e2e8f0;
   --fs-text-muted: #94a3b8;
   --fs-border: #1e293b;
   --fs-accent-blue: #60a5fa;
   --fs-accent-purple: #c084fc;
   --fs-accent-green: #34d399;
+  --fs-accent-teal: #2dd4bf;
   --fs-secondary-bg: rgba(30, 41, 59, 0.6);
 
+  --fs-primary-rgb: 201 131 0;
+  --fs-accent-blue-rgb: 96 165 250;
+  --fs-accent-purple-rgb: 192 132 252;
+  --fs-accent-green-rgb: 52 211 153;
+  --fs-accent-teal-rgb: 45 212 191;
+
   --fs-hero-grid-line: rgba(255, 255, 255, 0.03);
-  --fs-hero-glow: rgba(96, 165, 250, 0.08);
-  --fs-code-bg: var(--fs-bg-card);
+  --fs-hero-glow: rgb(var(--fs-accent-blue-rgb) / 0.08);
+  /* Match nightOwl's background so the landing-page code panel and the docs
+     code blocks are the same surface. */
+  --fs-code-bg: #011627;
+
+  --fs-announce-bg: #2a1c00;
+  --fs-announce-fg: #f0c674;
+  --fs-announce-border: rgb(var(--fs-primary-rgb) / 0.35);
+}
+
+/* ─── Cards need to separate from the page in dark mode ──────────────── */
+[data-theme="dark"] {
+  --ifm-card-background-color: var(--fs-bg-card);
+}
+
+/* ─── Announcement bar ──────────────────────────── */
+/* Infima hardcodes this to var(--ifm-color-white) with black text in *both*
+   themes, which puts a full-width white strip above the dark navbar. */
+div[class^="announcementBar_"] {
+  background-color: var(--fs-announce-bg);
+  border-bottom: 1px solid var(--fs-announce-border);
+  color: var(--fs-announce-fg);
+  font-weight: 500;
+}
+
+/* ─── Code blocks ───────────────────────────────── */
+/* nightOwl's comment colour (#637777) is 3.87:1 on its background — below AA.
+   #7c9494 keeps the same hue at 5.7:1. */
+[data-theme="dark"] .token.comment,
+[data-theme="dark"] .token.prolog,
+[data-theme="dark"] .token.cdata {
+  color: #7c9494;
 }
 
 /* Gradient text animation */

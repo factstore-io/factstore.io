@@ -69,7 +69,7 @@
 }
 
 .featureCard:hover {
-  border-color: rgba(179, 116, 0, 0.3);
+  border-color: rgb(var(--fs-primary-rgb) / 0.3);
 }
 
 .featureIconWrap {
@@ -79,7 +79,7 @@
   width: 2.75rem;
   height: 2.75rem;
   border-radius: 0.5rem;
-  background: rgba(179, 116, 0, 0.1);
+  background: rgb(var(--fs-primary-rgb) / 0.1);
   color: var(--ifm-color-primary);
 }
 
