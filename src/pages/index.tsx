@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from '@docusaurus/Link';
+import Head from '@docusaurus/Head';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
@@ -468,8 +469,23 @@ export default function Home(): React.JSX.Element {
   return (
     <Layout
       title={siteConfig.title}
-      description="An open-source event store built for correctness and flexibility."
+      description="FactStore is an open-source event store for event sourcing. Append immutable facts atomically, query them by subject or tags, and stream them in real time. Kotlin-first, self-hosted, Apache 2.0."
     >
+      {/*
+        Layout renders <title>FactStore</title> for the home page, which says
+        nothing to a search engine. Helmet takes the last title it is given, so
+        this overrides it with one that actually names the category.
+      */}
+      <Head>
+        <title>
+          FactStore — Open-Source Event Store for Event Sourcing
+        </title>
+        <meta
+          property="og:title"
+          content="FactStore — Open-Source Event Store for Event Sourcing"
+        />
+        <link rel="canonical" href="https://factstore.io/" />
+      </Head>
       <HeroSection />
       <main>
         <ManifestoSection />

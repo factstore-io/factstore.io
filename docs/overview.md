@@ -1,5 +1,14 @@
 ---
 sidebar_position: 1
+title: Overview
+description: FactStore is an open-source, Kotlin-first event store for event sourcing — a clean specification plus a FoundationDB-backed implementation, an HTTP and gRPC server, a CLI and a web explorer.
+keywords:
+  - event store
+  - event sourcing
+  - Kotlin event store
+  - FoundationDB
+  - CQRS
+  - open source event store
 ---
 
 # FactStore - Official Documentation

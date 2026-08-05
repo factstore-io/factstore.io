@@ -1,0 +1,12 @@
+# Security contact information for factstore.io and the FactStore project.
+# Format: RFC 9116 (https://www.rfc-editor.org/rfc/rfc9116).
+#
+# NOTE FOR MAINTAINERS: the Expires field below must stay in the future.
+# Update it at least once a year, or this file is formally invalid.
+
+Contact: mailto:hello@factstore.io
+Contact: https://github.com/factstore-io/factstore/security/advisories/new
+Expires: 2027-08-01T00:00:00.000Z
+Preferred-Languages: en, de
+Canonical: https://factstore.io/.well-known/security.txt
+Policy: https://factstore.io/security

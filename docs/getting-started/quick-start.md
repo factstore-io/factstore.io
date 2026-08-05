@@ -1,6 +1,15 @@
 ---
 sidebar_label: 'Quick Start'
 sidebar_position: 2
+title: Quick Start
+description: The FactStore Kotlin API in one page — initialising a store, simple and conditional appends, idempotency keys, querying facts and streaming them in real time.
+keywords:
+  - FactStore
+  - Kotlin
+  - event sourcing
+  - quick start
+  - AppendRequest
+  - idempotency key
 ---
 
 # Quick Start

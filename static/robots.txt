@@ -1,0 +1,134 @@
+# robots.txt for factstore.io
+#
+# FactStore is an open-source project. Its documentation is meant to be read,
+# indexed, quoted and learned from — by people, by search engines and by AI
+# systems alike. Everything here is public and permissively licensed, so the
+# default answer is yes.
+
+User-agent: *
+Allow: /
+
+# ---------------------------------------------------------------------------
+# Search engine crawlers
+# ---------------------------------------------------------------------------
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# ---------------------------------------------------------------------------
+# AI training and retrieval crawlers
+#
+# Listed explicitly rather than left to the wildcard above. Several of these
+# agents look for a rule naming them specifically, and an explicit Allow is a
+# clearer statement of intent than silence — which some operators treat
+# conservatively.
+# ---------------------------------------------------------------------------
+
+# OpenAI — model training
+User-agent: GPTBot
+Allow: /
+
+# OpenAI — ChatGPT browsing on a user's behalf
+User-agent: ChatGPT-User
+Allow: /
+
+# OpenAI — search index
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic — model training
+User-agent: ClaudeBot
+Allow: /
+
+# Anthropic — Claude browsing on a user's behalf
+User-agent: Claude-User
+Allow: /
+
+# Anthropic — search index
+User-agent: Claude-SearchBot
+Allow: /
+
+# Anthropic — legacy agent name
+User-agent: anthropic-ai
+Allow: /
+
+# Google — Gemini and Vertex AI grounding
+User-agent: Google-Extended
+Allow: /
+
+# Google — AI agents acting for a user
+User-agent: Google-CloudVertexBot
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Meta AI
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Amazon
+User-agent: Amazonbot
+Allow: /
+
+# Mistral AI
+User-agent: MistralAI-User
+Allow: /
+
+# Common Crawl — a major input to most open training corpora
+User-agent: CCBot
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+User-agent: cohere-training-data-crawler
+Allow: /
+
+# Diffbot
+User-agent: Diffbot
+Allow: /
+
+# Timpi
+User-agent: Timpibot
+Allow: /
+
+# ---------------------------------------------------------------------------
+# Machine-readable pointers
+# ---------------------------------------------------------------------------
+
+Sitemap: https://factstore.io/sitemap.xml

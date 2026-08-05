@@ -1,0 +1,62 @@
+# FactStore
+
+> FactStore is an open-source event store for building event-sourced applications. It provides a small set of primitives — append, query, stream — with atomic, idempotent writes, flexible consistency boundaries, and real-time ordered streaming. It is Kotlin-first, ships an HTTP and gRPC server, and is licensed under Apache 2.0.
+
+FactStore is a project, not a hosted service. You run it yourself: as a Docker
+container, as a JVM library, or against a FoundationDB cluster. There is no
+sign-up and no paid tier.
+
+Key ideas that distinguish FactStore from a plain append-only log:
+
+- A **fact** is something that happened. It is written once and never changed.
+  Facts carry a `type` (what happened), a `subject` (what it happened to),
+  free-form `tags` (anything else worth finding it by), and an opaque binary
+  payload that FactStore never inspects.
+- A **store** is an independent, ordered log of facts. A deployment can hold
+  many stores, used the way you would use separate schemas in a relational
+  database — one per bounded context, per tenant, or per environment. Ordering,
+  queries and subscriptions are all scoped to a single store.
+- Facts are retrievable along **two independent axes**: by subject, which gives
+  the classic per-entity event stream, and by tag, which cuts across subjects
+  entirely. In most event stores the second question requires building a
+  separate read model first.
+- Consistency boundaries are chosen **per operation**, not fixed when the schema
+  is designed. Traditional aggregate-based streams and Dynamic Consistency
+  Boundaries (DCB) can be used in the same store, and mixed.
+- Every append is atomic and idempotent. Idempotency keys make retries safe in
+  distributed systems; conditional appends enforce invariants without locking.
+
+Status: pre-release. The APIs are usable and documented but not yet recommended
+for production workloads.
+
+## Documentation
+
+- [Overview](https://factstore.io/docs/overview): What FactStore is, and how the specification, the FoundationDB implementation and the surrounding tools fit together.
+- [5-Minute Tutorial](https://factstore.io/docs/getting-started/five-minute-tutorial): Start a server in Docker, create a store, append facts, read them back by subject and by tag, and watch a live subscription. Shown with both curl and the CLI.
+- [Quick Start](https://factstore.io/docs/getting-started/quick-start): The Kotlin API — initialising a FactStore, simple and conditional appends, the query functions, and streaming with `StreamingOptionSet`.
+- [Appending Facts](https://factstore.io/docs/getting-started/appending-facts): Idempotency keys, append conditions and consistency guarantees.
+- [Finding Facts](https://factstore.io/docs/getting-started/finding-facts): Querying by id, subject, tag query and time range.
+- [Streaming Facts](https://factstore.io/docs/getting-started/streaming-facts): Ordered, resumable subscriptions and replay.
+
+## Components
+
+- [factstore-specification](https://github.com/factstore-io/factstore): The implementation-agnostic contracts and behavioural rules — the APIs for appending, reading, subscribing, and the ordering and consistency guarantees.
+- [factstore-foundationdb](https://github.com/factstore-io/factstore): A production-oriented implementation using FoundationDB as the storage engine, with strong consistency, ordered writes and efficient range reads.
+- HTTP & gRPC Server: A cloud-native server exposing the full FactStore API. Runs on-premise or in the cloud.
+- Kotlin Client SDK: An idiomatic, coroutine-native client for JVM applications.
+- Command-Line Interface: A native binary for scripting, exploration and local development.
+- FactExplorer: A browser-based UI for browsing stores, querying facts, and watching live streams.
+
+## Project
+
+- [About](https://factstore.io/about): What the project is, who maintains it, licensing and maturity.
+- [Source code](https://github.com/factstore-io/factstore): The main repository. Apache License 2.0.
+- [Discussions](https://github.com/factstore-io/factstore/discussions): Questions and design discussion.
+- [Issues](https://github.com/factstore-io/factstore/issues): Bug reports and feature requests.
+- [Security policy](https://factstore.io/security): How to report a vulnerability.
+- [Blog](https://factstore.io/blog): Release notes and design writing.
+
+## Optional
+
+- [Privacy](https://factstore.io/privacy): The site collects no personal data and sets no tracking cookies.
+- [Terms of Use](https://factstore.io/terms): Terms covering the website; the software itself is Apache 2.0.
